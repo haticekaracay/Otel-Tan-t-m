@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                >
+     <h:head>
+
+        <h:outputStylesheet library="css" name="mainStyle.css" />
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+
+        <h:outputScript library="js" name="mainJs.js"/>
+    </h:head>
+    <h:body>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+               <h:form>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <h:commandLink action="/index?faces-redirect=true" class="nav-link">HOME</h:commandLink>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink action="/?hakkimizda-redirect=true" class="nav-link">HAKKIMIZDA</h:commandLink>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink action="/yetkili?faces-redirect=true" class="nav-link">OTEL EKLE</h:commandLink>
+                    </li>
+                    <li><h:commandLink action="/register?faces-redirect=true" class="nav-link">GİRİS</h:commandLink></li>
+                     <li><h:commandLink action="#{users.doLogout()}" class="nav-link"  >ÇIKIŞ</h:commandLink></li>
+                    </ul>
+                </h:form>
+            </div>
+        </nav>
+       
+    </h:body>
+     <h:form>
+    <div align="left">
+    <font size='4' face="Times New Roman" color="green" >
+        <br>  </br>
+        <br> </br>
+        <br> </br>
+        <h2> Türk turizm sektörünün lider sitesi oteltanitim.com ,</h2>
+        <h2> oteller hakkında daha önce </h2>
+        <h2>bu otellerde konaklamış  </h2>
+        <h2> kişilerce yapılan değerlendirmeleri,</h2>
+        <h2>puanlamaları ve fotoğrafları içeren</h2>
+        <h2> objektif bir paylaşım ve bilgilendirme platformudur.</h2>
+    </font> 
+        </div>
+    </h:form>
+    
+
+</ui:composition>
+

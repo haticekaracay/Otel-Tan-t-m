@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/template/template.xhtml"
+    >
+    <ui:define name="content">
+        <body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h:form id="groups-table">
+                            <h:dataTable class="table table-striped" value="#{groups.list}" var="list" styleClass="table table-striped">
+                                <h:column>
+                                    <f:facet name="header">YETKİLİ NO</f:facet>
+                                    <h:commandLink value="#{list.grID}" action="#{groups.updateForm(list)}">
+                                        <f:ajax execute="@this" render="groups-form"/>
+                                    </h:commandLink>
+
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">KULLANICI ADI</f:facet>
+                                        #{list.kullaniciAdi}
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">ŞİFRE</f:facet>
+                                        #{list.sifre}
+                                </h:column>
+
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                    <div class="col-md-5" >
+                        <h:form id="groups-form">
+                            <div class="form-group">
+                                <label for="inputName">YETKİLİ NO</label>
+                                <h:inputText styleClass="form-control" value="#{groups.gr.grID}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">KULLANICI ADI </label>
+                                <h:inputText styleClass="form-control" value="#{groups.gr.kullaniciAdi}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">ŞİFRE</label>
+                                <h:inputText styleClass="form-control" value="#{groups.gr.sifre}"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <h:commandButton styleClass="btn btn-primary" value="CREATE" action="#{groups.create()}" rendered="#{groups.gr.grID==null}">
+                                        <f:ajax execute="groups-form" render="groups-form groups-table"/>
+                                    </h:commandButton> 
+                                    <h:commandButton styleClass="btn btn-primary" value="UPDATE" action="#{groups.update()}" rendered="#{groups.gr.grID!=null}">
+                                        <f:ajax execute="groups-form" render="groups-form groups-table"/>
+                                    </h:commandButton> 
+                                    <h:commandButton styleClass="btn btn-danger" value="DELETE" action="#{groups.delete()}" rendered="#{groups.gr.grID!=null}">
+                                        <f:ajax execute="groups-form" render="groups-form groups-table"/>
+                                    </h:commandButton> 
+                                    <h:commandButton styleClass="btn btn-outline-secondary" value="Clear Form" action="#{groups.clearForm()}" rendered="#{groups.gr.grID!=null}">
+                                        <f:ajax execute="@this" render="groups-form"/>
+                                    </h:commandButton> 
+
+                                </div>
+                            </div>
+                        </h:form>    
+                    </div>
+                </div>
+            </div>
+        </body>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="/template/templateFrontend.xhtml">
+    <ui:define name="content">
+        <h:body>
+            <div class="container">
+                <div class="col-md-7">
+                    <h:form id="yorum-table">
+                        <h:dataTable  value="#{yorum.list}" var="list" styleClass="table table-striped table-hover">
+                            <h:column>
+                                <f:facet name="header">YORUM NO</f:facet>
+                                <h:commandLink value="#{list.yorumID}" action="#{yorum.updateForm(list)}"> 
+                                    <f:ajax execute="@this" render="yorum-form"/>
+                                </h:commandLink>  
+                            </h:column> 
+
+                            <h:column>
+                                <f:facet name="header">ADI</f:facet>
+                                    #{list.kisiAdi}
+                            </h:column> 
+
+                            <h:column>
+                                <f:facet name="header">SOYADI</f:facet>
+                                    #{list.kisiSoyadi}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">MAİL</f:facet>
+                                    #{list.kisiMail}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">YORUM</f:facet>
+                                    #{list.yorumY}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">YORUM YAPILAN OTEL</f:facet>
+                                    #{list.otl.otelAdi}
+                            </h:column>                               
+                        </h:dataTable>
+                    </h:form>
+                </div>
+                <div class="col-md-5" >
+                    <h:form id="yorum-form">
+                        <div class="form-group">
+                            <label for="inputName">YORUM NO</label>
+                            <h:inputText styleClass="form-control" value="#{yorum.yrm.yorumID}"/>
+                        </div>
+                        <div class="form-control">
+                            <label for="inputName">KİŞİ ADI </label>
+                            <h:inputText styleClass="form-control" value="#{yorum.yrm.kisiAdi}"/>
+                        </div>
+                        <div class="form-control">
+                            <label for="inputName">KİŞİ SOYADI</label>
+                            <h:inputText styleClass="form-control" value="#{yorum.yrm.kisiSoyadi}"/>
+                        </div>
+                        <div class="form-control">
+                            <label for="inputName">MAİL</label>
+                            <h:inputText styleClass="form-control" value="#{yorum.yrm.kisiMail}"/>
+                        </div>
+                        <br/>
+                        <div class="form-control">
+                            <label for="selectedotel">OTEL</label>
+                            <h:selectOneMenu styleClass="custom-select" id="selectedOtel" value="#{yorum.yrm.otl}" converter="otelConverter">
+                                <f:selectItems value="#{yorum.olist}" var="otl" itemValue="#{otl}" itemLabel="#{otl.otelAdi}"/>
+                            </h:selectOneMenu>  
+                        </div>
+                        <br/>
+                        <div class="form-control">
+                            <label for="inputName">YORUMUNUZ:</label>
+                            <h:inputText styleClass="form-control" value="#{yorum.yrm.yorumY}"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-group">
+                                <h:commandButton styleClass="btn btn-primary" value="CREATE" action="#{yorum.create()}" rendered="#{yorum.yrm.yorumID==null}">
+                                    <f:ajax execute="yorum-form" render="yorum-form yorum-table"/>
+                                </h:commandButton>                              
+                            </div>
+                        </div>
+                    </h:form> 
+                </div>
+            </div>
+        </h:body>
+    </ui:define>
+</ui:composition>

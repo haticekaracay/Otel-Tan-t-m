@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/template/template.xhtml"
+    >
+    <ui:define name="content">
+        <body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h:form id="otel-table">
+                            <h:dataTable  value="#{otel.list}" var="liste" styleClass="table table-striped table-hover">
+                                <h:column>
+                                    <f:facet name="header">OTEL NO</f:facet>
+                                    <h:commandLink value="#{liste.otelID}" action="#{otel.updateForm(liste)}">
+                                         <f:ajax execute="@this" render="otel-form"/>
+                                    </h:commandLink> 
+
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">OTEL AD</f:facet>
+                                        #{liste.otelAdi}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">YILDIZ</f:facet>
+                                        #{liste.yildiz}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">ORTALAMA PUAN</f:facet>
+                                        #{liste.ortPuan}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">BULUNDUĞU ŞEHİR</f:facet>
+                                        #{liste.shr.sehirAdi}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Kampanyaları</f:facet>
+                                    <ui:repeat value="#{liste.otelkampanya}" var="kampanya">
+                                        <li>#{kampanya.kamAdi}</li>
+                                    </ui:repeat>
+
+                                </h:column>
+
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                    <div class="col-md-4" >
+                        <h:form id="otel-form">
+                            <div class="form-group">
+                                <label for="inputName">OTEL NO</label>
+
+                                <h:inputText styleClass="form-control"   value="#{otel.otl.otelID}" /><br/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName"> OTEL AD</label>
+
+                                <h:inputText styleClass="form-control"   value="#{otel.otl.otelAdi}" /><br/>
+                            </div>
+
+                            <br/>
+                            <div class="form-group">
+                                <label for="inputName"> YILDIZ </label>
+
+                                <h:inputText styleClass="form-control"   value="#{otel.otl.yildiz}" /><br/>
+                            </div>
+
+                            <br/>
+                            <div class="form-group">
+                                <label for="inputName"> ORTALAMA PUAN </label>
+
+                                <h:inputText styleClass="form-control"   value="#{otel.otl.ortPuan}" /><br/>
+                            </div>
+
+                            <br/>
+                            <div class="form-control">
+                                <label for="selectedSehir">Şehir</label>
+                                <h:selectOneMenu styleClass="custom-select" id="selectedSehir" value="#{otel.otl.shr}" converter="sehirConverter">
+                                    <f:selectItems value="#{otel.slist}" var="shr" itemValue="#{shr}" itemLabel="#{shr.sehirAdi}"/>
+                                </h:selectOneMenu>  
+                            </div>
+                            <div class="form-group">
+                                <label for="otelkampanya">Kampanya</label>
+                                <h:selectManyMenu value="#{otel.otl.otelkampanya}" styleClass="custom-select" converter="kampanyaConverter">
+                                    <f:selectItems value="#{otel.klist}" var="kam" itemValue="#{kam}" itemLabel="#{kam.kamAdi}"/>
+                                </h:selectManyMenu>
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <h:commandButton styleClass="btn btn-primary" value="CREATE" action="#{otel.create()}" rendered="#{otel.otl.otelID==null}" >
+                                        <f:ajax execute="otel-form" render="ptel-form otel-table"/>
+                                    </h:commandButton> 
+                                    <h:commandButton styleClass="btn btn-primary" value="UPDATE" action="#{otel.update()}" rendered="#{otel.otl.otelID!=null}" >
+                                         <f:ajax execute="otel-form" render="ptel-form otel-table"/>
+                                    </h:commandButton> 
+                                    <h:commandButton  styleClass="btn btn-danger" value="DELETE" action="#{otel.delete()}" rendered="#{otel.otl.otelID!=null}" >
+                                         <f:ajax execute="otel-form" render="ptel-form otel-table"/>
+                                    </h:commandButton> 
+                                    <h:commandButton  styleClass="btn btn-outline-secondary" value="Clear Form" action="#{otel.clearForm()}" rendered="#{otel.otl.otelID!=null}" >
+                                        <f:ajax execute="@this" render="otel-form"/>
+                                   </h:commandButton>
+
+                                </div>                     
+                            </div> 
+                        </h:form>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </body>
+    </ui:define>
+</ui:composition>

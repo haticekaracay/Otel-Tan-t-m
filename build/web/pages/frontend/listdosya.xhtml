@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="/template/templateFrontend.xhtml">
+    <ui:define name="content">
+        <h:body>
+            <div class="container">
+                <h:form>
+                    <h:dataTable styleClass="table" value="#{dosya.dsyList}" var="d">
+                        <h:column>
+                            <f:facet name="header">ID</f:facet>
+                                #{d.dosyaID}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">DOSYA ADI</f:facet>
+                                #{d.dosyaAdi}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">OTEL</f:facet>
+                                #{d.otl.otelAdi}
+                        </h:column> 
+                        <h:column>
+                            <h:panelGroup layout="block" rendered="#{d.dosyaTipi.contains('image')}">
+                                <h:graphicImage width="100" value="/file/#{d.dosyaAdi}"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{d.dosyaTipi.contains('application')}">
+                                <a href="/OT/faces/file/#{d.dosyaAdi}">#{d.dosyaAdi}</a>
+                            </h:panelGroup>
+
+                        </h:column>
+                    </h:dataTable> </h:form>
+            </div>
+        </h:body>
+    </ui:define>
+</ui:composition>

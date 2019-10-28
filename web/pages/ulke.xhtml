@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/template/template.xhtml"
+    >
+    <ui:define name="content">
+        <body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h:form id="ulke-table">
+                            <h:dataTable  value="#{ulke.list}" var="list" styleClass="table table-striped table-hover">
+                                <h:column>
+                                    <f:facet name="header">ULKE NO</f:facet>
+                                    <h:commandLink value="#{list.ulkeID}" action="#{ulke.updateForm(list)}">
+                                        <f:ajax execute="@this" render="ulke-form"/>
+                                    </h:commandLink>
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">ULKE ADI</f:facet>
+                                        #{list.ulkeAdi}
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">ULKEDE BULUNAN OTEL SAYISI</f:facet>
+                                        #{list.otelSayisiU}
+                                </h:column>  
+
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                    <div class="col-md-5" >
+                        <h:form id="ulke-form">
+                            <div class="form-group">
+                                <label for="inputName">ULKE NO</label>
+                                <h:inputText styleClass="form-control" value="#{ulke.ul.ulkeID}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">ULKE ADI</label>
+                                <h:inputText styleClass="form-control" value="#{ulke.ul.ulkeAdi}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">ULKEDE BULUNAN OTEL SAYISI</label>
+                                <h:inputText styleClass="form-control" value="#{ulke.ul.otelSayisiU}"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <h:commandButton styleClass="btn btn-primary" value="CREATE" action="#{ulke.create()}" rendered="#{ulke.ul.ulkeID==null}">
+                                        <f:ajax execute="ulke-form" render="ulke-form ulke-table"/>
+                                    </h:commandButton> 
+                                    <h:commandButton styleClass="btn btn-primary" value="UPDATE" action="#{ulke.update()}" rendered="#{ulke.ul.ulkeID!=null}">
+                                    <f:ajax execute="ulke-form" render="ulke-form ulke-table"/>
+                                    </h:commandButton> 
+                                    <h:commandButton styleClass="btn btn-danger" value="DELETE" action="#{ulke.delete()}" rendered="#{ulke.ul.ulkeID!=null}">
+                                   <f:ajax execute="ulke-form" render="ulke-form ulke-table"/>
+                                    </h:commandButton> 
+                                   <h:commandButton styleClass="btn btn-outline-secondary" value="Clear Form" action="#{ulke.clearForm()}" rendered="#{ulke.ul.ulkeID!=null}">
+                                    <f:ajax execute="@this" render="ulke-form"/>
+                                   </h:commandButton>     
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </ui:define>
+</ui:composition>

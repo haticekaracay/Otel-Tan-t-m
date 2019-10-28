@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/template/template.xhtml"
+    >
+    <ui:define name="content">
+        <body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h:form id="sehir-table">
+                            <h:dataTable class="table table-striped" value="#{sehir.list}" var="list" styleClass="table table-striped">
+                                <h:column>
+                                    <f:facet name="header">ŞEHİR PLAKA</f:facet>
+                                    <h:commandLink value="#{list.sehirID}" action="#{sehir.updateForm(list)}">
+                                        <f:ajax execute="@this" render="ulke-form"/>
+                                    </h:commandLink>
+                               
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">ŞEHİR ADI</f:facet>
+                                        #{list.sehirAdi}
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">ŞEHİRDE BULUNSN OTEL SAYISI</f:facet>
+                                        #{list.otelSayisi}
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">ULKE </f:facet>
+                                        #{list.ulk.ulkeAdi}
+                                </h:column> 
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                    <div class="col-md-6" >
+                        <h:form id="sehir-form">
+                            <div class="form-group">
+                                <label for="inputName">ŞEHİR PLAKA</label>
+                                <h:inputText styleClass="form-control" value="#{sehir.shr.sehirID}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">ŞEHİR AD </label>
+                                <h:inputText styleClass="form-control" value="#{sehir.shr.sehirAdi}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">ŞEHİRDE BULUNAN OTEL SAYISI </label>
+                                <h:inputText styleClass="form-control" value="#{sehir.shr.otelSayisi}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="selectedulke">Ulke</label>
+                                <h:selectOneMenu styleClass="custom-select" id="selectedUlke" value="#{sehir.shr.ulk}" converter="ulkeConverter">
+                                    <f:selectItems value="#{sehir.ulist}" var="ulk" itemValue="#{ulk}" itemLabel="#{ulk.ulkeAdi}"/>
+                                </h:selectOneMenu>  
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <h:commandButton styleClass="btn btn-primary" value="CREATE" action="#{sehir.create()}" rendered="#{sehir.shr.sehirID==null}">
+                                        <f:ajax execute="sehir-form" render="sehir-form sehir-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="btn btn-primary" value="UPDATE" action="#{sehir.update()}" rendered="#{sehir.shr.sehirID!=null}">
+                                        <f:ajax execute="sehir-form" render="sehir-form sehir-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="btn btn-danger" value="DELETE" action="#{sehir.delete()}" rendered="#{sehir.shr.sehirID!=null}">
+                                        <f:ajax execute="sehir-form" render="sehir-form sehir-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="btn btn-outline-secondary" value="Clear Form" action="#{sehir.clearForm()}" rendered="#{sehir.shr.sehirID!=null}">
+                                    <f:ajax execute="@this" render="sehir-form"/>
+                                   </h:commandButton>  
+                                </div>
+                            </div>
+                        </h:form>  
+
+                    </div>
+                </div>
+            </div>
+        </body>
+    </ui:define>
+</ui:composition>

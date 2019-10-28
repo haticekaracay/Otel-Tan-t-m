@@ -1,0 +1,60 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/template/template.xhtml"
+    >
+
+
+    <ui:define name="content">
+        <h:form enctype="multipart/form-data">
+            <div class="form-group">
+                <label>File</label>
+                <h:inputFile value="#{dosya.dos}" styleClass="custom-file"/>
+            </div>
+            <br/>
+            <div class="form-control">
+                <label for="selectedotel">OTEL</label>
+                <h:selectOneMenu styleClass="custom-select" id="selectedOtel" value="#{dosya.dsy.otl}" converter="otelConverter">
+                    <f:selectItems value="#{dosya.olist}" var="otl" itemValue="#{otl}" itemLabel="#{otl.otelAdi}"/>
+                </h:selectOneMenu>  
+            </div>
+            <h:commandButton action="#{dosya.upload()}" value="Upload" styleClass="btn btn-primary"/>
+        </h:form>
+        <hr/>
+
+        <h:dataTable styleClass="table" value="#{dosya.dsyList}" var="d">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                    #{d.dosyaID}
+            </h:column>
+            <h:column>
+                <f:facet name="header">DOSYA YOLU</f:facet>
+                    #{d.dosyaYolu}
+            </h:column>
+            <h:column>
+                <f:facet name="header">DOSYA ADI</f:facet>
+                    #{d.dosyaAdi}
+            </h:column>
+            <h:column>
+                <f:facet name="header">DOSYA TİPİ</f:facet>
+                    #{d.dosyaTipi}
+            </h:column>
+            <h:column>
+                <f:facet name="header">OTEL</f:facet>
+                    #{d.otl.otelAdi}
+            </h:column> 
+            <h:column>
+                <h:panelGroup layout="block" rendered="#{d.dosyaTipi.contains('image')}">
+                    <h:graphicImage width="100" value="/file/#{d.dosyaAdi}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{d.dosyaTipi.contains('application')}">
+                    <a href="/OT/pages/file/#{d.dosyaAdi}">#{d.dosyaAdi}</a>
+                </h:panelGroup>
+
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+
+</ui:composition>

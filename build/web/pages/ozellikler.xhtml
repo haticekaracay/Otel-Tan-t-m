@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/template/template.xhtml"
+    >
+    <ui:define name="content">
+        <body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h:form id="ozellikler-table">
+                            <h:dataTable value="#{ozellikler.list}" var="ozellik" styleClass="table table-striped table-hover">
+                                <h:column>
+                                    <f:facet name="header">ÖZELLİK NO</f:facet>
+                                    <h:commandLink value="#{ozellik.ozellikID}" action="#{ozellikler.updateForm(ozellik)}">
+                                        <f:ajax execute="@this" render="ozellikler-form"/>
+                                    </h:commandLink> 
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">HAVUZ</f:facet>
+                                        #{ozellik.havuz}
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">KAHVALTI</f:facet>
+                                        #{ozellik.kahvalti}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">HAMAM/SPA</f:facet>
+                                        #{ozellik.hamamSPA}
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">OTOPARK</f:facet>
+                                        #{ozellik.otopark}
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">OTELI</f:facet>
+                                    <ui:repeat value="#{ozellik.otelozellik}" var="otel">
+                                        <li>#{otel.otelAdi}</li>
+                                    </ui:repeat>
+
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                    <div class="col-md-4" >
+                        <h:form id="ozellikler-form">
+                            <div class="form-group">
+                                <label for="inputName">ÖZELLİK NO </label>
+                                <h:inputText styleClass="form-control" value="#{ozellikler.o.ozellikID}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">HAVUZ </label>
+                                <h:inputText styleClass="form-control" value="#{ozellikler.o.havuz}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">KAHVALTI </label>
+                                <h:inputText styleClass="form-control" value="#{ozellikler.o.kahvalti}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">HAMAM/SPA </label>
+                                <h:inputText styleClass="form-control" value="#{ozellikler.o.hamamSPA}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">OTOPARK </label>
+                                <h:inputText styleClass="form-control" value="#{ozellikler.o.otopark}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="otelozellik">Otel</label>
+                                <h:selectManyMenu value="#{ozellikler.o.otelozellik}" styleClass="custom-select" converter="otelConverter">
+                                    <f:selectItems value="#{ozellikler.otlist}" var="otl" itemValue="#{otl}" itemLabel="#{otl.otelAdi}"/>
+                                </h:selectManyMenu>
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <h:commandButton styleClass="btn btn-primary" value="CREATE" action="#{ozellikler.create()}" rendered="#{ozellikler.o.ozellikID==null}">
+                                        <f:ajax execute="ozellikler-form" render="ozellikler-form ozellikler-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="btn btn-primary" value="UPDATE" action="#{ozellikler.update()}" rendered="#{ozellikler.o.ozellikID!=null}">
+                                        <f:ajax execute="ozellikler-form" render="ozellikler-form ozellikler-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="btn btn-danger" value="DELETE" action="#{ozellikler.delete()}" rendered="#{ozellikler.o.ozellikID!=null}">
+                                        <f:ajax execute="ozellikler-form" render="ozellikler-form ozellikler-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="btn btn-outline-secondary" value="Clear Form" action="#{ozellikler.clearForm()}" rendered="#{ozellikler.o.ozellikID!=null}">
+                                        <f:ajax execute="@this" render="ozellikler-form"/>
+                                    </h:commandButton> 
+
+                                </div>                     
+                            </div> 
+                        </h:form>  
+                    </div>
+                </div>
+            </div>
+        </body>
+    </ui:define>
+</ui:composition>

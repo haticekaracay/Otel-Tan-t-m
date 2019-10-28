@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="/template/templateFrontend.xhtml">
+    <ui:define name="content">
+        <h:body>
+            <div class="container">
+                <h:form>
+                    <h:dataTable class="table table-striped" value="#{oda.list}" var="list" styleClass="table table-striped">
+                        <h:column>
+                            <f:facet name="header">ODA NO</f:facet>
+                                #{list.odaID}
+                        </h:column> 
+
+                        <h:column>
+                            <f:facet name="header">ODA TÜRÜ</f:facet>
+                                #{list.odaTuru}
+                        </h:column> 
+
+                        <h:column>
+                            <f:facet name="header">ODANIN YATAK SAYISI</f:facet>
+                                #{list.yatakSayisi}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">ODANIN FİYATI </f:facet>
+                                #{list.odaFiyat}
+                        </h:column> 
+
+                        <h:column>
+                            <f:facet name="header">OTEL ADI</f:facet>
+                                #{list.otl.otelAdi}
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </h:body>
+    </ui:define>
+</ui:composition>

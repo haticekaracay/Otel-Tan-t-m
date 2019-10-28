@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/template/templateFrontend.xhtml">
+    <ui:define name="content">
+        <body>
+            <div class="container">
+                <div class="col-md-8">
+                    <h:form>
+                        <h:dataTable  value="#{otel.list}" var="liste" styleClass="table table-striped table-hover">
+                            <h:column>
+                                <f:facet name="header">OTEL NO</f:facet>
+                                #{liste.otelID}
+                                <a href="https://www.tatilbudur.com/" target="_blank">REZERVASYON</a>
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">OTEL AD</f:facet>
+                               #{liste.otelAdi}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">YILDIZ</f:facet>
+                                    #{liste.yildiz}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">ORTALAMA PUAN</f:facet>
+                                    #{liste.ortPuan}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">BULUNDUĞU ŞEHİR</f:facet>
+                                    #{liste.shr.sehirAdi}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Kampanyaları</f:facet>
+                                <ui:repeat value="#{liste.otelkampanya}" var="kampanya">
+                                    <li>#{kampanya.kamAdi}</li>
+                                </ui:repeat>
+
+                            </h:column>
+
+                        </h:dataTable>
+                        
+                        <h:commandButton action="/pages/frontend/listyorum?faces-redirect=true" value="YORUM"/> 
+                    </h:form>
+                </div>
+            </div>
+        </body>
+    </ui:define>
+</ui:composition>

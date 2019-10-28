@@ -1,0 +1,14 @@
+SMAP
+arama_jsp.java
+JSP
+*S JSP
+*F
++ 0 arama.jsp
+pages/frontend/arama.jsp
+*L
+5,24:46
+28,23:69
+50:92
+52,3:94
+54,13:97
+*E

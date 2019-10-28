@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="/template/templateFrontend.xhtml">
+    <ui:define name="content">
+        <h:body>
+            <div class="container">
+                <h:form>
+                    <h:dataTable value="#{ozellikler.list}" var="ozellik" styleClass="table table-striped table-hover">
+                        <h:column>
+                            <f:facet name="header">ÖZELLİK NO</f:facet>
+                            <h:commandLink value="#{ozellik.ozellikID}" action="#{ozellikler.updateForm(ozellik)}">
+                                <f:ajax execute="@this" render="ozellikler-form"/>
+                            </h:commandLink> 
+                        </h:column> 
+
+                        <h:column>
+                            <f:facet name="header">HAVUZ</f:facet>
+                                #{ozellik.havuz}
+                        </h:column> 
+
+                        <h:column>
+                            <f:facet name="header">KAHVALTI</f:facet>
+                                #{ozellik.kahvalti}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">HAMAM/SPA</f:facet>
+                                #{ozellik.hamamSPA}
+                        </h:column> 
+
+                        <h:column>
+                            <f:facet name="header">OTOPARK</f:facet>
+                                #{ozellik.otopark}
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">OTELI</f:facet>
+                            <ui:repeat value="#{ozellik.otelozellik}" var="otel">
+                                <li>#{otel.otelAdi}</li>
+                            </ui:repeat>
+
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </h:body>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/template/template.xhtml"
+    >
+    <ui:define name="content">
+        <body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h:form id="oda-table">
+                            <h:dataTable class="table table-striped" value="#{oda.list}" var="list" styleClass="table table-striped">
+                                <h:column>
+                                    <f:facet name="header">ODA NO</f:facet>
+                                    <h:commandLink value="#{list.odaID}" action="#{oda.updateForm(list)}">
+                                        <f:ajax execute="@this" render="oda-form"/>
+                                    </h:commandLink>
+
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">ODA TÜRÜ</f:facet>
+                                        #{list.odaTuru}
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">ODANIN YATAK SAYISI</f:facet>
+                                        #{list.yatakSayisi}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">ODANIN FİYATI </f:facet>
+                                        #{list.odaFiyat}
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">OTEL ADI</f:facet>
+                                        #{list.otl.otelAdi}
+                                </h:column> 
+
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                    <div class="col-md-5" >
+                        <h:form id="oda-form">
+                            <div class="form-group">
+                                <label for="inputName">ODA NO </label>
+                                <h:inputText styleClass="form-control" value="#{oda.od.odaID}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">ODA TÜRÜ </label>
+                                <h:inputText styleClass="form-control" value="#{oda.od.odaTuru}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">ODADAKİ YATAK SAYISI </label>
+                                <h:inputText styleClass="form-control" value="#{oda.od.yatakSayisi}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="inputName">ODA FİYATI </label>
+                                <h:inputText styleClass="form-control" value="#{oda.od.odaFiyat}"/>
+                            </div>
+                            <div class="form-control">
+                                <label for="selectedotel">OTEL</label>
+                                <h:selectOneMenu styleClass="custom-select" id="selectedOtel" value="#{oda.od.otl}" converter="otelConverter">
+                                    <f:selectItems value="#{oda.olist}" var="otl" itemValue="#{otl}" itemLabel="#{otl.otelAdi}"/>
+                                </h:selectOneMenu>  
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <h:commandButton styleClass="btn btn-primary" value="CREATE" action="#{oda.create()}" rendered="#{oda.od.odaFiyat==null}">
+                                        <f:ajax execute="oda-form" render="oda-form oda-table"/>
+                                    </h:commandButton> 
+                                    <h:commandButton styleClass="btn btn-primary" value="UPDATE" action="#{oda.update()}" rendered="#{oda.od.odaFiyat!=null}">
+                                        <f:ajax execute="oda-form" render="oda-form oda-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="btn btn-danger" value="DELETE" action="#{oda.delete()}" rendered="#{oda.od.odaFiyat!=null}">
+                                        <f:ajax execute="oda-form" render="oda-form oda-table"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="btn btn-outline-secondary" value="Clear Form" action="#{oda.clearForm()}" rendered="#{oda.od.odaFiyat!=null}">
+                                        <f:ajax execute="@this" render="oda-form"/>
+                                   </h:commandButton> 
+   
+                                </div>                     
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </ui:define>
+</ui:composition>
